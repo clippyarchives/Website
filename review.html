@@ -1,0 +1,39 @@
+<!doctype html>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>App Review Notes — personalclip</title>
+<link rel="stylesheet" href="styles.css" />
+<div class="doc">
+  <section class="reactive-section" id="sec-review">
+  <div style="padding:24px">
+  <h1>App Review Notes</h1>
+  <p><strong>App name:</strong> Clippy</p>
+  <p><strong>Product:</strong> Content Posting API</p>
+  <p><strong>Scopes requested:</strong> user.info.basic, video.upload (optional: video.publish)</p>
+
+  <h2>End‑to‑end flow</h2>
+  <ol>
+    <li>The desktop app opens a browser to TikTok OAuth (PKCE). Redirect URI: <code>http://127.0.0.1:8765/callback</code>.</li>
+    <li>After the user authorizes, the app stores the access token locally on the user’s device.</li>
+    <li>The user enables “TikTok mode”, chooses a segment length (1–30 minutes), then converts a source video to 9:16.</li>
+    <li>The app splits the export into segments, generates subtitles locally, and for each segment either burns or soft‑muxes subtitles.</li>
+    <li>With “Auto‑post segments” enabled, the app uploads each segment to the user’s TikTok inbox/drafts via the Content Posting API.</li>
+  </ol>
+
+  <h2>Implementation</h2>
+  <ul>
+    <li>Uploads use the official <em>upload init</em> then <em>file upload</em> flow. No server; tokens stored locally.</li>
+    <li>We only request the minimal scopes needed for the described features.</li>
+    <li>Users can revoke access at any time in TikTok.</li>
+  </ul>
+
+  <h2>Testing instructions</h2>
+  <ol>
+    <li>Launch the desktop app, open TikTok section, enter Client key, click “Connect TikTok”.</li>
+    <li>Select any short video, enable “TikTok mode”, choose segment length, enable “Auto‑post segments”.</li>
+    <li>Click Convert; observe segments appear in the TikTok account’s inbox/drafts.</li>
+  </ol>
+  </div>
+  </section>
+</div>
+
